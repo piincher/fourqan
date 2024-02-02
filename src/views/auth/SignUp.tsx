@@ -1,44 +1,61 @@
-import AuthInputField from "@components/AuthInputField";
-import AppInput from "@ui/AppINput";
+import AuthInputField from "@components/form/AuthInputField";
+import Form from "@components/form";
 import { colors } from "@utils/colors";
-import React, { FC, useState } from "react";
-import { View, StyleSheet, Text, TextInput, Button } from "react-native";
+import React, { FC } from "react";
+import { Button, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as yup from "yup";
+import SubmitBtn from "@components/form/SubmitBtn";
+const signupSchema = yup.object({
+	name: yup.string().trim().required("Name is required").min(3, "Name must be at least 3 characters"),
+	email: yup.string().trim("").email("Invalid email").required("Email is required"),
+	password: yup
+		.string()
+		.trim("password is missing")
+		.min(8, "Password is too short")
+		.required("Password is required")
+		.matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/, "Password is too weak"),
+});
+
 interface Props {}
+const initialValues = {
+	name: "",
+	email: "",
+	password: "",
+};
 
 const SignUp: FC<Props> = () => {
-	const [userInfo, setUserInfo] = useState({
-		name: "",
-		email: "",
-		password: "",
-	});
+	console.log("SignUp");
 	return (
 		<SafeAreaView style={styles.container}>
-			<View style={styles.formContainer}>
-				<AuthInputField
-					label='Name'
-					placeholder='Name'
-					containerStyle={styles.containerStyle}
-					onChange={(text) => setUserInfo({ ...userInfo, name: text })}
-				/>
-				<AuthInputField
-					label='Email'
-					placeholder='Email'
-					autoCapitalize='none'
-					keyboardType='email-address'
-					containerStyle={styles.containerStyle}
-					onChange={(text) => setUserInfo({ ...userInfo, email: text })}
-				/>
-				<AuthInputField
-					label='Password'
-					autoCapitalize='none'
-					placeholder='**********'
-					secureTextEntry
-					containerStyle={styles.containerStyle}
-					onChange={(text) => setUserInfo({ ...userInfo, password: text })}
-				/>
-				<Button title='Sign Up' onPress={() => console.log(userInfo)} />
-			</View>
+			<Form
+				initialValues={initialValues}
+				onSubmit={(values) => {
+					console.log(values);
+				}}
+				validationSchema={signupSchema}
+			>
+				<View style={styles.formContainer}>
+					<AuthInputField label='Name' placeholder='Name' containerStyle={styles.containerStyle} name='name' />
+					<AuthInputField
+						label='Email'
+						placeholder='Email'
+						autoCapitalize='none'
+						keyboardType='email-address'
+						containerStyle={styles.containerStyle}
+						name='email'
+					/>
+					<AuthInputField
+						name='password'
+						label='Password'
+						autoCapitalize='none'
+						placeholder='**********'
+						secureTextEntry
+						containerStyle={styles.containerStyle}
+					/>
+					<SubmitBtn title='Sign Up' />
+				</View>
+			</Form>
 		</SafeAreaView>
 	);
 };
