@@ -1,11 +1,15 @@
 import AuthInputField from "@components/form/AuthInputField";
 import Form from "@components/form";
+import { Entypo } from "@expo/vector-icons";
+
 import { colors } from "@utils/colors";
 import React, { FC } from "react";
 import { Button, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 import SubmitBtn from "@components/form/SubmitBtn";
+import PasswordVisibilityIcon from "@ui/PasswordVisibilityIcon";
+import AppLink from "@ui/AppLink";
 const signupSchema = yup.object({
 	name: yup.string().trim().required("Name is required").min(3, "Name must be at least 3 characters"),
 	email: yup.string().trim("").email("Invalid email").required("Email is required"),
@@ -25,7 +29,7 @@ const initialValues = {
 };
 
 const SignUp: FC<Props> = () => {
-	console.log("SignUp");
+	const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 	return (
 		<SafeAreaView style={styles.container}>
 			<Form
@@ -50,10 +54,16 @@ const SignUp: FC<Props> = () => {
 						label='Password'
 						autoCapitalize='none'
 						placeholder='**********'
-						secureTextEntry
+						secureTextEntry={secureTextEntry}
 						containerStyle={styles.containerStyle}
+						rightIcon={<PasswordVisibilityIcon privateIcon={secureTextEntry} />}
+						onRightIconPress={() => setSecureTextEntry(!secureTextEntry)}
 					/>
 					<SubmitBtn title='Sign Up' />
+					<View style={styles.link}>
+						<AppLink title='I lost my password' onPress={() => console.log("Sign in")} />
+						<AppLink title='Sign in' />
+					</View>
 				</View>
 			</Form>
 		</SafeAreaView>
@@ -71,6 +81,12 @@ const styles = StyleSheet.create({
 
 	containerStyle: {
 		marginBottom: 20,
+	},
+	link: {
+		marginTop: 20,
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
 	},
 });
 
