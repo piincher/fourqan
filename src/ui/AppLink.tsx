@@ -10,7 +10,7 @@ interface Props {
 const AppLink: FC<Props> = ({ title, onPress }) => {
 	return (
 		<Pressable onPress={onPress}>
-			<Text>{title}</Text>
+			<Text style={styles.title}>{title}</Text>
 		</Pressable>
 	);
 };

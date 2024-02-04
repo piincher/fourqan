@@ -1,11 +1,17 @@
 import { colors } from "@utils/colors";
 import React, { FC } from "react";
-import { StyleSheet, TextInput, TextInputProps } from "react-native";
+import { Keyboard, Pressable, StyleSheet, TextInput, TextInputProps, View } from "react-native";
 
 interface Props extends TextInputProps {}
 
 const AppInput: FC<Props> = (props) => {
-	return <TextInput {...props} style={[styles.input, props.style]} placeholderTextColor={colors.CONSTRAT} />;
+	return (
+		<Pressable onPress={Keyboard.dismiss}>
+			<View>
+				<TextInput {...props} style={[styles.input, props.style]} placeholderTextColor={colors.CONSTRAT} />
+			</View>
+		</Pressable>
+	);
 };
 
 const styles = StyleSheet.create({

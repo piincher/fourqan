@@ -1,36 +1,24 @@
+import AuthFormContainer from "@components/AuthFormContainer";
 import Form from "@components/form";
 import AuthInputField from "@components/form/AuthInputField";
-import { Image } from "expo-image";
 import SubmitBtn from "@components/form/SubmitBtn";
 import AppLink from "@ui/AppLink";
-import CircleUI from "@ui/CircleUI";
 import PasswordVisibilityIcon from "@ui/PasswordVisibilityIcon";
-import { colors } from "@utils/colors";
 import React, { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View } from "react-native";
 import * as yup from "yup";
-import { fonts } from "@utils/fonts";
-import AuthFormContainer from "@components/AuthFormContainer";
 const signupSchema = yup.object({
-	name: yup.string().trim().required("Name is required").min(3, "Name must be at least 3 characters"),
 	email: yup.string().trim("").email("Invalid email").required("Email is required"),
-	password: yup
-		.string()
-		.trim("password is missing")
-		.min(8, "Password is too short")
-		.required("Password is required")
-		.matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/, "Password is too weak"),
+	password: yup.string().trim("password is missing").min(8, "Password is too short").required("Password is required"),
 });
 
 interface Props {}
 const initialValues = {
-	name: "",
 	email: "",
 	password: "",
 };
 
-const SignUp: FC<Props> = () => {
+const SignIn: FC<Props> = () => {
 	const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 	return (
 		<Form
@@ -40,9 +28,8 @@ const SignUp: FC<Props> = () => {
 			}}
 			validationSchema={signupSchema}
 		>
-			<AuthFormContainer title='Sign Up' subTitle='Create an account to continue'>
+			<AuthFormContainer title='Ravi de vous revoir' subTitle='Connectez-Vous'>
 				<View style={styles.formContainer}>
-					<AuthInputField label='Name' placeholder='Name' containerStyle={styles.containerStyle} name='name' />
 					<AuthInputField
 						label='Email'
 						placeholder='Email'
@@ -61,10 +48,10 @@ const SignUp: FC<Props> = () => {
 						rightIcon={<PasswordVisibilityIcon privateIcon={secureTextEntry} />}
 						onRightIconPress={() => setSecureTextEntry(!secureTextEntry)}
 					/>
-					<SubmitBtn title='Sign Up' />
+					<SubmitBtn title='Se Connecter' />
 					<View style={styles.link}>
-						<AppLink title='I lost my password' onPress={() => console.log("Sign in")} />
-						<AppLink title='Sign in' onPress={() => {}} />
+						<AppLink title="J'ai perdu mon mot de passe" onPress={() => console.log("Sign in")} />
+						<AppLink title="S'inscrire" onPress={() => {}} />
 					</View>
 				</View>
 			</AuthFormContainer>
@@ -86,4 +73,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default SignUp;
+export default SignIn;

@@ -1,3 +1,5 @@
+import LostPassword from "@views/auth/LostPassword";
+import SignIn from "@views/auth/SignIn";
 import SignUp from "@views/auth/SignUp";
 import * as Font from "expo-font";
 import React, { useEffect } from "react";
