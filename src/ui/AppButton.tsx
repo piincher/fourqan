@@ -10,7 +10,7 @@ interface Props {
 const AppButton: FC<Props> = ({ title, onPress }) => {
 	return (
 		<Pressable style={styles.container} onPress={onPress}>
-			<Text>{title}</Text>
+			<Text style={styles.title}>{title}</Text>
 		</Pressable>
 	);
 };
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 	},
 	title: {
-		color: colors.CONSTRAT,
+		color: colors.PRIMARY,
 		fontSize: 18,
 	},
 });

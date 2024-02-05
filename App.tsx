@@ -1,6 +1,7 @@
 import LostPassword from "@views/auth/LostPassword";
 import SignIn from "@views/auth/SignIn";
 import SignUp from "@views/auth/SignUp";
+import Verification from "@views/auth/Verification";
 import * as Font from "expo-font";
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
@@ -34,7 +35,7 @@ const App = () => {
 		return null;
 	}
 
-	return <SignUp />;
+	return <Verification />;
 };
 
 export default App;

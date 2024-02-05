@@ -3,8 +3,7 @@ import { colors } from "@utils/colors";
 import { fonts } from "@utils/fonts";
 import { Image } from "expo-image";
 import React, { FC, ReactNode } from "react";
-import { View, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 interface Props {
 	title: string;
