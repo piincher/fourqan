@@ -35,7 +35,7 @@ const LostPassword: FC<Props> = () => {
 						name='email'
 					/>
 
-					<SubmitBtn title='Envoyer le lien pour reinitialise votre mot de passe' />
+					<SubmitBtn title='Envoyer' />
 					<View style={styles.link}>
 						<AppLink title="J'ai perdu mon mot de passe" onPress={() => console.log("Sign in")} />
 						<AppLink title="S'inscrire" onPress={() => {}} />
