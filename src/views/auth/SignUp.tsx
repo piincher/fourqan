@@ -1,17 +1,12 @@
+import AuthFormContainer from "@components/AuthFormContainer";
 import Form from "@components/form";
 import AuthInputField from "@components/form/AuthInputField";
-import { Image } from "expo-image";
 import SubmitBtn from "@components/form/SubmitBtn";
 import AppLink from "@ui/AppLink";
-import CircleUI from "@ui/CircleUI";
 import PasswordVisibilityIcon from "@ui/PasswordVisibilityIcon";
-import { colors } from "@utils/colors";
 import React, { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View } from "react-native";
 import * as yup from "yup";
-import { fonts } from "@utils/fonts";
-import AuthFormContainer from "@components/AuthFormContainer";
 const signupSchema = yup.object({
 	name: yup.string().trim().required("Name is required").min(3, "Name must be at least 3 characters"),
 	email: yup.string().trim("").email("Invalid email").required("Email is required"),
@@ -40,7 +35,7 @@ const SignUp: FC<Props> = () => {
 			}}
 			validationSchema={signupSchema}
 		>
-			<AuthFormContainer title='Sign Up' subTitle='Cree un compte'>
+			<AuthFormContainer title='Creer un Compte utilisateur' subTitle='Cree un compte'>
 				<View style={styles.formContainer}>
 					<AuthInputField label='Name' placeholder='Name' containerStyle={styles.containerStyle} name='name' />
 					<AuthInputField
