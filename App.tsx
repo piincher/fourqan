@@ -30,7 +30,6 @@ const App = () => {
 
 		loadFonts();
 	});
-
 	if (!loadFonts) {
 		return null;
 	}
