@@ -40,7 +40,7 @@ const SignUp: FC<Props> = () => {
 			}}
 			validationSchema={signupSchema}
 		>
-			<AuthFormContainer title='Sign Up' subTitle='Create an account to continue'>
+			<AuthFormContainer title='Sign Up' subTitle='Cree un compte'>
 				<View style={styles.formContainer}>
 					<AuthInputField label='Name' placeholder='Name' containerStyle={styles.containerStyle} name='name' />
 					<AuthInputField
