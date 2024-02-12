@@ -5,12 +5,14 @@ import AppLink from "@ui/AppLink";
 import OTPField from "@ui/OTPField";
 import React, { FC, useEffect, useState } from "react";
 import { Keyboard, StyleSheet, TextInput, View } from "react-native";
+import { AuthNavigationProps } from "src/@types/navigation";
 
 interface Props {}
 
 const otpFields = new Array(6).fill("");
 
-const Verification: FC<Props> = () => {
+const Verification = ({route
+}:AuthNavigationProps) => {
 	const [otp, setOtp] = useState<string[]>([...otpFields]);
 	const [activeOtpIndex, setActiveOtpIndex] = useState<number>(0);
 	const inputRef = React.useRef<TextInput>(null);

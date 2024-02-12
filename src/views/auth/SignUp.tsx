@@ -4,8 +4,12 @@ import AuthInputField from "@components/form/AuthInputField";
 import SubmitBtn from "@components/form/SubmitBtn";
 import AppLink from "@ui/AppLink";
 import PasswordVisibilityIcon from "@ui/PasswordVisibilityIcon";
+import axios from "axios";
+import { FormikHelpers } from "formik";
 import React, { FC } from "react";
 import { StyleSheet, View } from "react-native";
+import { AuthNavigationProps } from "src/@types/navigation";
+import { client } from "src/api/client";
 import * as yup from "yup";
 const signupSchema = yup.object({
 	name: yup.string().trim().required("Name is required").min(3, "Name must be at least 3 characters"),
@@ -18,23 +22,32 @@ const signupSchema = yup.object({
 		.matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/, "Password is too weak"),
 });
 
-interface Props {}
+interface newUser {
+	name: string;
+	email: string;
+	password: string;
+}
 const initialValues = {
 	name: "",
 	email: "",
 	password: "",
 };
 
-const SignUp: FC<Props> = () => {
+const SignUp = ({ navigation }: AuthNavigationProps) => {
 	const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+	const handleSubmit = async (values: newUser, action: FormikHelpers<newUser>) => {
+		try {
+			const { data } = await client.post<{ user: { email: string; id: string; name: string } }>("/auth/create", {
+				...values,
+			});
+			console.log(data);
+			navigation.navigate("Verification", { userInfo: data.user });
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	return (
-		<Form
-			initialValues={initialValues}
-			onSubmit={(values) => {
-				console.log(values);
-			}}
-			validationSchema={signupSchema}
-		>
+		<Form initialValues={initialValues} onSubmit={handleSubmit} validationSchema={signupSchema}>
 			<AuthFormContainer title='Creer un Compte utilisateur' subTitle='Cree un compte'>
 				<View style={styles.formContainer}>
 					<AuthInputField label='Name' placeholder='Name' containerStyle={styles.containerStyle} name='name' />
@@ -58,15 +71,15 @@ const SignUp: FC<Props> = () => {
 					/>
 					<SubmitBtn title='Sign Up' />
 					<View style={styles.link}>
-						<AppLink title='I lost my password' onPress={() => console.log("Sign in")} />
-						<AppLink title='Sign in' onPress={() => {}} />
+						<AppLink title='I lost my password' onPress={() => navigation.navigate("LostPassword")} />
+						<AppLink title='Sign in' onPress={() => navigation.navigate("SignIn")} />
 					</View>
 				</View>
 			</AuthFormContainer>
 		</Form>
 	);
 };
-
+// https://fourqan.cyclic.app/
 const styles = StyleSheet.create({
 	formContainer: { width: "100%" },
 
