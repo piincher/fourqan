@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
-import * as Font from 'expo-font'
-import React from 'react'
+import * as Font from 'expo-font';
+import { useEffect, useState } from 'react';
 
 export const useFont = () => {
-    const [loadFonts, setLoadFonts] = useState(false)
+    const [loadFonts, setLoadFonts] = useState(false);
 
     useEffect(() => {
         const loadFonts = async () => {
@@ -20,12 +19,12 @@ export const useFont = () => {
                 regular: require('../../assets/fonts/Roboto-Regular.ttf'),
                 thin: require('../../assets/fonts/Roboto-Thin.ttf'),
                 thinItalic: require('../../assets/fonts/Roboto-ThinItalic.ttf'),
-            })
-            setLoadFonts(true)
-        }
+            });
+            setLoadFonts(true);
+        };
 
-        loadFonts()
-    })
+        loadFonts();
+    });
 
-    return { loadFonts }
-}
+    return { loadFonts };
+};

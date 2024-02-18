@@ -28,5 +28,6 @@ module.exports = {
   rules: {
     indent: ['error', 4],
     'linebreak-style': ['error', 'windows'],
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };

@@ -1,16 +1,15 @@
-import { Formik, FormikHelpers } from 'formik'
-import React, { FC, ReactNode } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { Formik, FormikHelpers } from 'formik';
+import React, { ReactNode } from 'react';
 
 interface Props<T> {
-  initialValues: any;
+  initialValues: never;
   children: ReactNode;
-  validationSchema: any;
+  validationSchema: unknown;
   onSubmit: ((
     values: T,
-    formikHelpers: FormikHelpers<any>,
-  ) => void | Promise<any>) &
-    ((values: any) => void);
+    formikHelpers: FormikHelpers<unknown>,
+  ) => void | Promise<unknown>) &
+    ((values: unknown) => void);
 }
 
 const Form = <T extends object>(props: Props<T>) => {
@@ -22,11 +21,7 @@ const Form = <T extends object>(props: Props<T>) => {
         >
             {props.children}
         </Formik>
-    )
-}
+    );
+};
 
-const styles = StyleSheet.create({
-    container: {},
-})
-
-export default Form
+export default Form;

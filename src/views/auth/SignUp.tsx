@@ -4,7 +4,6 @@ import AuthInputField from '@components/form/AuthInputField';
 import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
-import { FormikHelpers } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AuthNavigationProps } from 'src/@types/navigation';
@@ -27,6 +26,7 @@ const signupSchema = yup.object({
         .min(8, 'Password is too short')
         .required('Password is required')
         .matches(
+            // eslint-disable-next-line no-useless-escape
             /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/,
             'Password is too weak',
         ),
@@ -45,10 +45,7 @@ const initialValues = {
 
 const SignUp = ({ navigation }: AuthNavigationProps) => {
     const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-    const handleSubmit = async (
-        values: newUser,
-        action: FormikHelpers<newUser>,
-    ) => {
+    const handleSubmit = async (values: newUser) => {
         try {
             const { data } = await client.post<{
         user: { email: string; id: string; name: string };

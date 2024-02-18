@@ -1,10 +1,10 @@
-import { colors } from '@utils/colors'
-import { fonts } from '@utils/fonts'
-import React, { FC, forwardRef } from 'react'
-import { View, StyleSheet, TextInput, TextInputProps } from 'react-native'
+import { colors } from '@utils/colors';
+import { fonts } from '@utils/fonts';
+import React, { forwardRef } from 'react';
+import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
 interface Props extends TextInputProps {
-  ref: any;
+  ref: unknown;
 }
 
 const OTPField = forwardRef<TextInput, Props>((props, ref) => (
@@ -14,7 +14,11 @@ const OTPField = forwardRef<TextInput, Props>((props, ref) => (
         style={[styles.input, props.style]}
         placeholderTextColor={colors.INACTIVE_CONSTRAT}
     />
-))
+));
+
+OTPField.displayName = 'OTPField'; // Add display name
+
+export default OTPField;
 
 const styles = StyleSheet.create({
     container: {},
@@ -30,6 +34,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: fonts.black,
     },
-})
-
-export default OTPField
+});
