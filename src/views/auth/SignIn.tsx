@@ -5,18 +5,10 @@ import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
 
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AuthNavigationProps } from 'src/@types/navigation';
 import * as yup from 'yup';
-
-import { Magic } from '@magic-sdk/react-native-expo';
-import { useSupabase } from 'src/hooks/useSupabase';
-import { client } from 'src/api/client';
-import { FormikHelpers } from 'formik';
-
-export const magic = new Magic('pk_live_29F70767E6BA237B');
 
 const signupSchema = yup.object({
   email: yup
@@ -44,10 +36,7 @@ interface newUser {
 const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
-  const handleSubmit = async (
-    values: newUser,
-    actions: FormikHelpers<newUser>,
-  ) => {
+  const handleSubmit = async (values: newUser) => {
     try {
       const { data } = await client.post<{
         user: { email: string; id: string; name: string };
@@ -69,7 +58,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
         <View style={styles.formContainer}>
           <AuthInputField
             label="Email"
-            placeholder="Email"
+            placeholder="Email addresse"
             autoCapitalize="none"
             keyboardType="email-address"
             containerStyle={styles.containerStyle}

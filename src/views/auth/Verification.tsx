@@ -57,7 +57,9 @@ const Verification = ({ route }: AuthNavigationProps<'Verification'>) => {
       });
 
       console.log(data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -26,9 +26,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react'],
   rules: {
-    indent: ['error', 2],
     'linebreak-style': ['error', 'windows'],
     '@typescript-eslint/no-explicit-any': 'off',
-    '@stylistic/js/linebreak-style': ['error', 'windows'],
   },
 };
