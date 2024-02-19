@@ -1,40 +1,29 @@
-import LostPassword from "@views/auth/LostPassword";
-import SignIn from "@views/auth/SignIn";
-import SignUp from "@views/auth/SignUp";
-import Verification from "@views/auth/Verification";
-import * as Font from "expo-font";
-import React, { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { magic } from '@views/auth/SignIn';
+import { SupabaseProvider } from 'context/SupabaseProvider';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFont } from 'src/hooks/useFont';
+import { AuthNavigator } from 'src/navigation/AuthNavigation';
 
+magic.preload();
 const App = () => {
-	const [loadFonts, setLoadFonts] = React.useState(false);
+  const { loadFonts } = useFont();
+  if (!loadFonts) {
+    return null;
+  }
 
-	useEffect(() => {
-		const loadFonts = async () => {
-			await Font.loadAsync({
-				black: require("./assets/fonts//Roboto-Black.ttf"),
-				blackItalic: require("./assets/fonts/Roboto-BlackItalic.ttf"),
-				bold: require("./assets/fonts/Roboto-Bold.ttf"),
-				boldItalic: require("./assets/fonts/Roboto-BoldItalic.ttf"),
-				italic: require("./assets/fonts/Roboto-Italic.ttf"),
-				light: require("./assets/fonts/Roboto-Light.ttf"),
-				lightItalic: require("./assets/fonts/Roboto-LightItalic.ttf"),
-				medium: require("./assets/fonts/Roboto-Medium.ttf"),
-				mediumItalic: require("./assets/fonts/Roboto-MediumItalic.ttf"),
-				regular: require("./assets/fonts/Roboto-Regular.ttf"),
-				thin: require("./assets/fonts/Roboto-Thin.ttf"),
-				thinItalic: require("./assets/fonts/Roboto-ThinItalic.ttf"),
-			});
-			setLoadFonts(true);
-		};
-
-		loadFonts();
-	});
-	if (!loadFonts) {
-		return null;
-	}
-
-	return <Verification />;
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <SupabaseProvider>
+          <magic.Relayer />
+          <AuthNavigator />
+        </SupabaseProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
 };
 
 export default App;
