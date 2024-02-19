@@ -1,9 +1,11 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 interface newUserInfo {
   email: string;
   id: string;
   name: string;
 }
+
 export type AuthStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
@@ -11,4 +13,5 @@ export type AuthStackParamList = {
   Verification: { userInfo: newUserInfo };
 };
 
-export type AuthNavigationProps = NativeStackScreenProps<AuthStackParamList>;
+export type AuthNavigationProps<T extends keyof AuthStackParamList> =
+  NativeStackScreenProps<AuthStackParamList, T>;

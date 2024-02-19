@@ -7,11 +7,11 @@ interface Props {
 }
 
 const PasswordVisibilityIcon: FC<Props> = ({ privateIcon }) => {
-    return privateIcon ? (
-        <Entypo name="eye" size={16} color={colors.SECONDARY} />
-    ) : (
-        <Entypo name="eye-with-line" size={16} color={colors.SECONDARY} />
-    );
+  return privateIcon ? (
+    <Entypo name="eye" size={16} color={colors.SECONDARY} />
+  ) : (
+    <Entypo name="eye-with-line" size={16} color={colors.SECONDARY} />
+  );
 };
 
 export default PasswordVisibilityIcon;

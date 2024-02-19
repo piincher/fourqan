@@ -8,16 +8,16 @@ import { AuthStackParamList } from 'src/@types/navigation';
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 export const AuthNavigator = () => {
-    return (
-        <Stack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
-            <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="LostPassword" component={LostPassword} />
-            <Stack.Screen name="Verification" component={Verification} />
-        </Stack.Navigator>
-    );
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="LostPassword" component={LostPassword} />
+      <Stack.Screen name="Verification" component={Verification} />
+    </Stack.Navigator>
+  );
 };
