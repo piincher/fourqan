@@ -27,7 +27,9 @@ jobs:
         run: npm install
       - name: Install expo-cli globally
         run: npm install -g expo-cli
-      - name: Publish on Expo
+      - name: Install eas-cli  globally
+        run: npm install -g eas-cli
+      - name: Publish on Expo go app
         run: eas update --auto
       # - name: Build for Ios Ipa
       #   run: eas build --profile production --platform android --non-interactive
