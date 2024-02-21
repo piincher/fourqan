@@ -1,6 +1,7 @@
 import { colors } from '@utils/colors';
 import React, { FC } from 'react';
 import { Text, StyleSheet, Pressable } from 'react-native';
+
 import Loader from './Loader';
 
 interface Props {

@@ -54,12 +54,18 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
     action.setSubmitting(true);
     try {
       const { data } = await client.post<{
-        user: { email: string; id: string; name: string };
+        user: {
+          email: string;
+          id: string;
+          name: string;
+        };
       }>('/auth/create', {
         ...values,
       });
 
-      navigation.navigate('Verification', { userInfo: data.user });
+      navigation.navigate('Verification', {
+        userInfo: data.user,
+      });
     } catch (error) {
       console.log(error);
     }

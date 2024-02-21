@@ -1,13 +1,12 @@
+import { AntDesign } from '@expo/vector-icons';
+import { colors } from '@utils/colors';
 import React, { FC, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
-import { AntDesign } from '@expo/vector-icons';
-import { colors } from '@utils/colors';
 interface Props {
   color?: string;
 }
@@ -29,9 +28,5 @@ const Loader: FC<Props> = ({ color = colors.PRIMARY }) => {
     </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {},
-});
 
 export default Loader;

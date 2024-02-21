@@ -5,7 +5,6 @@ import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
 import { FormikHelpers } from 'formik';
-
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AuthNavigationProps } from 'src/@types/navigation';
@@ -45,7 +44,11 @@ const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
     action.setSubmitting(true);
     try {
       const { data } = await client.post<{
-        user: { email: string; id: string; name: string };
+        user: {
+          email: string;
+          id: string;
+          name: string;
+        };
       }>('/auth/sign-in', {
         ...values,
       });

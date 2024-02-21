@@ -26,7 +26,10 @@ const AuthFormContainer: FC<Props> = ({ title, subTitle, children }) => {
         <View style={styles.headerContainer}>
           <Image
             source={require('../../assets/logo.png')}
-            style={{ height: 80, width: 200 }}
+            style={{
+              height: 80,
+              width: 200,
+            }}
           />
           <Text style={styles.heading}>{title}</Text>
           <Text style={styles.subTitle}>{subTitle}</Text>

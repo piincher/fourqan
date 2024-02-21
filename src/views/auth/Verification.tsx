@@ -87,8 +87,12 @@ const Verification = ({ route }: AuthNavigationProps<'Verification'>) => {
     setCountdown(30);
     setCanSendOtp(false);
     try {
-      await client.post('/auth/re-verify-email', { userId: userInfo.id });
-    } catch (error) {}
+      await client.post('/auth/re-verify-email', {
+        userId: userInfo.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
