@@ -2,7 +2,7 @@ import { Formik, FormikHelpers } from 'formik';
 import React, { ReactNode } from 'react';
 
 interface Props<T> {
-  initialValues: never;
+  initialValues: T;
   children: ReactNode;
   validationSchema: unknown;
   onSubmit: ((

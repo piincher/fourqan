@@ -4,19 +4,12 @@ import AuthInputField from '@components/form/AuthInputField';
 import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
-
-import * as WebBrowser from 'expo-web-browser';
+import { FormikHelpers } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AuthNavigationProps } from 'src/@types/navigation';
-import * as yup from 'yup';
-
-import { Magic } from '@magic-sdk/react-native-expo';
-import { useSupabase } from 'src/hooks/useSupabase';
 import { client } from 'src/api/client';
-import { FormikHelpers } from 'formik';
-
-export const magic = new Magic('pk_live_29F70767E6BA237B');
+import * as yup from 'yup';
 
 const signupSchema = yup.object({
   email: yup
@@ -46,11 +39,16 @@ const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
 
   const handleSubmit = async (
     values: newUser,
-    actions: FormikHelpers<newUser>,
+    action: FormikHelpers<newUser>,
   ) => {
+    action.setSubmitting(true);
     try {
       const { data } = await client.post<{
-        user: { email: string; id: string; name: string };
+        user: {
+          email: string;
+          id: string;
+          name: string;
+        };
       }>('/auth/sign-in', {
         ...values,
       });
@@ -58,6 +56,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
     } catch (error) {
       console.log('signin error', error);
     }
+    action.setSubmitting(false);
   };
   return (
     <Form
@@ -69,7 +68,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
         <View style={styles.formContainer}>
           <AuthInputField
             label="Email"
-            placeholder="Email"
+            placeholder="Email addresse"
             autoCapitalize="none"
             keyboardType="email-address"
             containerStyle={styles.containerStyle}

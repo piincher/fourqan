@@ -1,34 +1,15 @@
 module.exports = {
-  env: {
-    es2021: true,
-    node: true,
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-  ],
+  root: true,
+  extends: ['universe/native', 'universe/shared/typescript-analysis'],
   overrides: [
     {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['*.ts', '*.tsx', '*.d.ts'],
       parserOptions: {
-        sourceType: 'script',
+        project: './tsconfig.json',
       },
     },
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  plugins: ['@typescript-eslint', 'react'],
   rules: {
-    indent: ['error', 2],
-    'linebreak-style': ['error', 'windows'],
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@stylistic/js/linebreak-style': ['error', 'windows'],
+    // '@typescript-eslint/no-explicit-any': 'error',
   },
 };
