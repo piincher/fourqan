@@ -4,10 +4,12 @@ import AuthInputField from '@components/form/AuthInputField';
 import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
+import { FormikHelpers } from 'formik';
 
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AuthNavigationProps } from 'src/@types/navigation';
+import { client } from 'src/api/client';
 import * as yup from 'yup';
 
 const signupSchema = yup.object({
@@ -36,7 +38,11 @@ interface newUser {
 const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
-  const handleSubmit = async (values: newUser) => {
+  const handleSubmit = async (
+    values: newUser,
+    action: FormikHelpers<newUser>,
+  ) => {
+    action.setSubmitting(true);
     try {
       const { data } = await client.post<{
         user: { email: string; id: string; name: string };
@@ -47,6 +53,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
     } catch (error) {
       console.log('signin error', error);
     }
+    action.setSubmitting(false);
   };
   return (
     <Form

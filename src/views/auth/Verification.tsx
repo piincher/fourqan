@@ -2,8 +2,9 @@ import AuthFormContainer from '@components/AuthFormContainer';
 import AppButton from '@ui/AppButton';
 import AppLink from '@ui/AppLink';
 import OTPField from '@ui/OTPField';
+import { colors } from '@utils/colors';
 import React, { useEffect, useState } from 'react';
-import { Keyboard, StyleSheet, TextInput, View } from 'react-native';
+import { Keyboard, StyleSheet, TextInput, View, Text } from 'react-native';
 import { AuthNavigationProps } from 'src/@types/navigation';
 import { client } from 'src/api/client';
 
@@ -11,7 +12,10 @@ const otpFields = new Array(6).fill('');
 
 const Verification = ({ route }: AuthNavigationProps<'Verification'>) => {
   const [otp, setOtp] = useState<string[]>([...otpFields]);
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [activeOtpIndex, setActiveOtpIndex] = useState<number>(0);
+  const [countdown, setCountdown] = useState<number>(10);
+  const [canSendOtp, setCanSendOtp] = useState<boolean>(false);
   const inputRef = React.useRef<TextInput>(null);
   const { userInfo } = route.params;
 
@@ -43,6 +47,22 @@ const Verification = ({ route }: AuthNavigationProps<'Verification'>) => {
     inputRef.current?.focus();
   }, [activeOtpIndex]);
 
+  useEffect(() => {
+    if (canSendOtp) return;
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 0) {
+          setCanSendOtp(true);
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [canSendOtp]);
+
   const isValidOtp = otp.every((value) => {
     return value.trim();
   });
@@ -50,6 +70,7 @@ const Verification = ({ route }: AuthNavigationProps<'Verification'>) => {
     console.log(otp.join(''));
 
     if (!isValidOtp) return;
+    setSubmitting(true);
     try {
       const { data } = await client.post('/auth/verify-email', {
         userId: userInfo.id,
@@ -60,6 +81,14 @@ const Verification = ({ route }: AuthNavigationProps<'Verification'>) => {
     } catch (error) {
       console.log(error);
     }
+    setSubmitting(false);
+  };
+  const requestForOtp = async () => {
+    setCountdown(30);
+    setCanSendOtp(false);
+    try {
+      await client.post('/auth/re-verify-email', { userId: userInfo.id });
+    } catch (error) {}
   };
 
   return (
@@ -85,10 +114,17 @@ const Verification = ({ route }: AuthNavigationProps<'Verification'>) => {
           })}
         </View>
 
-        <AppButton title="Confirmez" onPress={handleSubmit} />
+        <AppButton busy={submitting} title="Confirmez" onPress={handleSubmit} />
 
         <View style={styles.linkContainer}>
-          <AppLink title="Renvoyez" onPress={handleSubmit} />
+          {countdown > 0 ? (
+            <Text style={styles.countDown}>{countdown} sec</Text>
+          ) : null}
+          <AppLink
+            title="Renvoyez"
+            onPress={requestForOtp}
+            active={canSendOtp}
+          />
         </View>
       </View>
     </AuthFormContainer>
@@ -108,7 +144,12 @@ const styles = StyleSheet.create({
   linkContainer: {
     marginTop: 20,
     width: '100%',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
+  },
+  countDown: {
+    color: colors.SECONDARY,
+    marginRight: 10,
   },
 });
 

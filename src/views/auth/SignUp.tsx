@@ -4,6 +4,7 @@ import AuthInputField from '@components/form/AuthInputField';
 import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
+import { FormikHelpers } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AuthNavigationProps } from 'src/@types/navigation';
@@ -43,20 +44,26 @@ const initialValues = {
   password: '',
 };
 
-const SignUp = ({ navigation }: AuthNavigationProps) => {
+const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-  const handleSubmit = async (values: newUser) => {
+
+  const handleSubmit = async (
+    values: newUser,
+    action: FormikHelpers<newUser>,
+  ) => {
+    action.setSubmitting(true);
     try {
       const { data } = await client.post<{
         user: { email: string; id: string; name: string };
       }>('/auth/create', {
         ...values,
       });
-      console.log(data);
+
       navigation.navigate('Verification', { userInfo: data.user });
     } catch (error) {
       console.log(error);
     }
+    action.setSubmitting(false);
   };
   return (
     <Form
