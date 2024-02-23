@@ -4,11 +4,15 @@ import AuthInputField from '@components/form/AuthInputField';
 import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
+import { keys, saveToasyncStorage } from '@utils/asyncStorage';
 import { FormikHelpers } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { AuthNavigationProps } from 'src/@types/navigation';
 import { client } from 'src/api/client';
+import { useAppDispatch } from 'src/store';
+import { UserProfile, updateLoginState, updateProfile } from 'src/store/auth';
 import * as yup from 'yup';
 
 const signupSchema = yup.object({
@@ -36,7 +40,7 @@ interface newUser {
 
 const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-
+  const dispatch = useAppDispatch();
   const handleSubmit = async (
     values: newUser,
     action: FormikHelpers<newUser>,
@@ -44,20 +48,21 @@ const SignIn = ({ navigation }: AuthNavigationProps<'SignIn'>) => {
     action.setSubmitting(true);
     try {
       const { data } = await client.post<{
-        user: {
-          email: string;
-          id: string;
-          name: string;
-        };
+        profile: UserProfile;
+        token: string;
       }>('/auth/sign-in', {
         ...values,
       });
-      console.log(data);
+      saveToasyncStorage(keys.AUTH_TOKEN, data.token);
+      dispatch(updateProfile(data.profile));
+      dispatch(updateLoginState(true));
     } catch (error) {
       console.log('signin error', error);
     }
     action.setSubmitting(false);
   };
+
+  console.log('signin');
   return (
     <Form
       initialValues={initialValues}

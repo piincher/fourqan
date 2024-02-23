@@ -3,8 +3,11 @@ import Form from '@components/form';
 import AuthInputField from '@components/form/AuthInputField';
 import SubmitBtn from '@components/form/SubmitBtn';
 import AppLink from '@ui/AppLink';
+import { FormikHelpers } from 'formik';
 import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { AuthNavigationProps } from 'src/@types/navigation';
+import { client } from 'src/api/client';
 import * as yup from 'yup';
 const lostPassword = yup.object({
   email: yup
@@ -15,17 +18,39 @@ const lostPassword = yup.object({
 });
 
 interface Props {}
+interface newUser {
+  email: string;
+}
 const initialValues = {
   email: '',
 };
 
-const LostPassword: FC<Props> = () => {
+const LostPassword = ({ navigation }: AuthNavigationProps<'LostPassword'>) => {
+  const handleSubmit = async (
+    values: newUser,
+    action: FormikHelpers<newUser>,
+  ) => {
+    action.setSubmitting(true);
+    try {
+      const { data } = await client.post<{
+        user: {
+          email: string;
+          id: string;
+          name: string;
+        };
+      }>('/auth/forget-password', {
+        ...values,
+      });
+      console.log(data);
+    } catch (error) {
+      console.log('signin error', error);
+    }
+    action.setSubmitting(false);
+  };
   return (
     <Form
       initialValues={initialValues}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
+      onSubmit={handleSubmit}
       validationSchema={lostPassword}
     >
       <AuthFormContainer
@@ -45,10 +70,13 @@ const LostPassword: FC<Props> = () => {
           <SubmitBtn title="Envoyer" />
           <View style={styles.link}>
             <AppLink
-              title="J'ai perdu mon mot de passe"
-              onPress={() => console.log('Sign in')}
+              title="Se connecter"
+              onPress={() => navigation.navigate('SignIn')}
             />
-            <AppLink title="S'inscrire" onPress={() => {}} />
+            <AppLink
+              title="S'inscrire"
+              onPress={() => navigation.navigate('SignUp')}
+            />
           </View>
         </View>
       </AuthFormContainer>
