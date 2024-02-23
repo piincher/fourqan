@@ -1,4 +1,5 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
+
 import { RootState } from '.';
 
 export interface UserProfile {

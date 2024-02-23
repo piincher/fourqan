@@ -1,18 +1,19 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import React, { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'src/store';
-import { AuthNavigator } from './AuthNavigation';
-import TabNavigator from './TabNavigator';
+import Loader from '@ui/Loader';
 import { getFromasyncStorage, keys } from '@utils/asyncStorage';
+import { colors } from '@utils/colors';
+import React, { FC, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { client } from 'src/api/client';
+import { useAppDispatch, useAppSelector } from 'src/store';
 import {
   updateBusyState,
   updateLoginState,
   updateProfile,
 } from 'src/store/auth';
-import Loader from '@ui/Loader';
-import { View, StyleSheet } from 'react-native';
-import { colors } from '@utils/colors';
+
+import { AuthNavigator } from './AuthNavigation';
+import TabNavigator from './TabNavigator';
 
 interface Props {}
 

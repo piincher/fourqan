@@ -1,8 +1,8 @@
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '@views/Home';
 import Profile from '@views/Profile';
 import Upload from '@views/upload';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
