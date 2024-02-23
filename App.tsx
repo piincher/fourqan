@@ -1,10 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { SupabaseProvider } from 'context/SupabaseProvider';
+import AppContainer from '@components/AppContainer';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 import { useFont } from 'src/hooks/useFont';
-import { AuthNavigator } from 'src/navigation/AuthNavigation';
+import Index from 'src/navigation/Index';
+import store from 'src/store';
 
 const App = () => {
   const { loadFonts } = useFont();
@@ -14,11 +15,11 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <SupabaseProvider>
-          <AuthNavigator />
-        </SupabaseProvider>
-      </NavigationContainer>
+      <Provider store={store}>
+        <AppContainer>
+          <Index />
+        </AppContainer>
+      </Provider>
     </SafeAreaProvider>
   );
 };

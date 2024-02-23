@@ -15,6 +15,9 @@
     "package": "com.fourqan.fourqan",
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "config": {
+        "usesNonExemptEncryption": false
+      },
       "supportsTablet": true,
       "bundleIdentifier": "com.fourqan.fourqan",
       "config": {
