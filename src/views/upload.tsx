@@ -1,4 +1,7 @@
+import CategorySelector from '@components/CategorySelector';
 import { FileSelector } from '@components/FileSelector';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AppButton from '@ui/AppButton';
 import React, { FC } from 'react';
 import {
   View,
@@ -8,9 +11,6 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AppButton from '@ui/AppButton';
-import CategorySelector from '@components/CategorySelector';
 
 const Upload = () => {
   return (
@@ -45,7 +45,7 @@ const Upload = () => {
           placeholder="About"
           style={styles.input}
           numberOfLines={10}
-          multiline={true}
+          multiline
         />
         <CategorySelector visible title="Category" />
         <AppButton title="Upload" onPress={() => {}} borderRadius={1} />

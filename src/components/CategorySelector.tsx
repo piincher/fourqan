@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '@utils/colors';
 import { fonts } from '@utils/fonts';
 import React, { FC } from 'react';
@@ -9,7 +10,6 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface Props {
   visible: boolean;

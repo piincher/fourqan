@@ -1,3 +1,5 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
 import {
   Pressable,
   View,
@@ -6,8 +8,6 @@ import {
   ViewStyle,
   StyleProp,
 } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React from 'react';
 interface Props {
   icon?: React.ReactNode;
   btnTitle: string;
