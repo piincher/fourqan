@@ -6,4 +6,5 @@ export const colors = {
   ERROR: '#FF5B14',
   SUCCESS: '#3BEF1E',
   OVERLAY: 'rgba(45,35,35,0.5)',
+  LIGHT_GREEN: '#60D69A',
 };

@@ -49,9 +49,9 @@ const AppContainer: FC<Props> = ({ children }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Pressable onPress={handlePress}>
-        <Animated.View style={[styles.marqueeContainer, animationStyle]}>
+        {/* <Animated.View style={[styles.marqueeContainer, animationStyle]}>
           <Text style={{ color: 'red' }}>{longText}</Text>
-        </Animated.View>
+        </Animated.View> */}
       </Pressable>
       {children}
     </SafeAreaView>
